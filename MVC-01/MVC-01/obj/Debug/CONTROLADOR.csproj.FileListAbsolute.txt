@@ -1,0 +1,5 @@
+D:\Visual Studio\Proyectos\II AÑO\Practica-Ej01-MVC\MVC-01\MVC-01\obj\Debug\CONTROLADOR.csproj.AssemblyReference.cache
+D:\Visual Studio\Proyectos\II AÑO\Practica-Ej01-MVC\MVC-01\MVC-01\obj\Debug\CONTROLADOR.csproj.SuggestedBindingRedirects.cache
+D:\Visual Studio\Proyectos\II AÑO\Practica-Ej01-MVC\MVC-01\MVC-01\obj\Debug\MVC_01.Properties.Resources.resources
+D:\Visual Studio\Proyectos\II AÑO\Practica-Ej01-MVC\MVC-01\MVC-01\obj\Debug\CONTROLADOR.csproj.GenerateResource.cache
+D:\Visual Studio\Proyectos\II AÑO\Practica-Ej01-MVC\MVC-01\MVC-01\obj\Debug\CONTROLADOR.csproj.CoreCompileInputs.cache

@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EmpresaDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CategoriaSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ClienteSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="edad" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="telefono" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Empresa_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmpleadoEmpleado">
+    <Key>
+      <PropertyRef Name="Superior_Id" />
+      <PropertyRef Name="Subordinado_Id" />
+    </Key>
+    <Property Name="Superior_Id" Type="int" Nullable="false" />
+    <Property Name="Subordinado_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmpleadoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="edad" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="salario" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="categoria" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Empresa_Id" Type="int" Nullable="false" />
+    <Property Name="Categoria_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmpresaSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_EmpleadoCategoria">
+    <End Role="CategoriaSet" Type="Self.CategoriaSet" Multiplicity="1" />
+    <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CategoriaSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmpleadoSet">
+        <PropertyRef Name="Categoria_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmpleadoEmpleado_Empleado">
+    <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="1" />
+    <End Role="EmpleadoEmpleado" Type="Self.EmpleadoEmpleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmpleadoSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmpleadoEmpleado">
+        <PropertyRef Name="Superior_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmpleadoEmpleado_Empleado1">
+    <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="1" />
+    <End Role="EmpleadoEmpleado" Type="Self.EmpleadoEmpleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmpleadoSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmpleadoEmpleado">
+        <PropertyRef Name="Subordinado_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmpresaClientes">
+    <End Role="EmpresaSet" Type="Self.EmpresaSet" Multiplicity="1" />
+    <End Role="ClienteSet" Type="Self.ClienteSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmpresaSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClienteSet">
+        <PropertyRef Name="Empresa_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmpresaEmpleados">
+    <End Role="EmpresaSet" Type="Self.EmpresaSet" Multiplicity="1" />
+    <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmpresaSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmpleadoSet">
+        <PropertyRef Name="Empresa_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EmpresaDBStoreContainer">
+    <EntitySet Name="CategoriaSet" EntityType="Self.CategoriaSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClienteSet" EntityType="Self.ClienteSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmpleadoEmpleado" EntityType="Self.EmpleadoEmpleado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmpleadoSet" EntityType="Self.EmpleadoSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmpresaSet" EntityType="Self.EmpresaSet" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_EmpleadoCategoria" Association="Self.FK_EmpleadoCategoria">
+      <End Role="CategoriaSet" EntitySet="CategoriaSet" />
+      <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmpleadoEmpleado_Empleado" Association="Self.FK_EmpleadoEmpleado_Empleado">
+      <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+      <End Role="EmpleadoEmpleado" EntitySet="EmpleadoEmpleado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmpleadoEmpleado_Empleado1" Association="Self.FK_EmpleadoEmpleado_Empleado1">
+      <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+      <End Role="EmpleadoEmpleado" EntitySet="EmpleadoEmpleado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmpresaClientes" Association="Self.FK_EmpresaClientes">
+      <End Role="EmpresaSet" EntitySet="EmpresaSet" />
+      <End Role="ClienteSet" EntitySet="ClienteSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmpresaEmpleados" Association="Self.FK_EmpresaEmpleados">
+      <End Role="EmpresaSet" EntitySet="EmpresaSet" />
+      <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

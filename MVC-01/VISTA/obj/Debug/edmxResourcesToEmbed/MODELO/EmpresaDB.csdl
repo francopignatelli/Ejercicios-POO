@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="EmpresaDB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="EmpresaDBContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="EmpresaSet" EntityType="EmpresaDB.Empresa" />
+    <EntitySet Name="ClienteSet" EntityType="EmpresaDB.Cliente" />
+    <EntitySet Name="EmpleadoSet" EntityType="EmpresaDB.Empleado" />
+    <AssociationSet Name="EmpresaClientes" Association="EmpresaDB.EmpresaClientes">
+      <End Role="Empresa" EntitySet="EmpresaSet" />
+      <End Role="Clientes" EntitySet="ClienteSet" />
+    </AssociationSet>
+    <AssociationSet Name="EmpresaEmpleados" Association="EmpresaDB.EmpresaEmpleados">
+      <End Role="Empresa" EntitySet="EmpresaSet" />
+      <End Role="Empleados" EntitySet="EmpleadoSet" />
+    </AssociationSet>
+    <AssociationSet Name="EmpleadoEmpleado" Association="EmpresaDB.EmpleadoEmpleado">
+      <End Role="Empleado" EntitySet="EmpleadoSet" />
+      <End Role="Empleado1" EntitySet="EmpleadoSet" />
+    </AssociationSet>
+    <EntitySet Name="CategoriaSet" EntityType="EmpresaDB.Categoria" />
+    <AssociationSet Name="EmpleadoCategoria" Association="EmpresaDB.EmpleadoCategoria">
+      <End Role="Empleado" EntitySet="EmpleadoSet" />
+      <End Role="Categoria" EntitySet="CategoriaSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Empresa">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Clientes" Relationship="EmpresaDB.EmpresaClientes" FromRole="Empresa" ToRole="Clientes" />
+    <NavigationProperty Name="Empleados" Relationship="EmpresaDB.EmpresaEmpleados" FromRole="Empresa" ToRole="Empleados" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="edad" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="telefono" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Empresa" Relationship="EmpresaDB.EmpresaClientes" FromRole="Clientes" ToRole="Empresa" />
+  </EntityType>
+  <EntityType Name="Empleado">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="edad" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="salario" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="categoria" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Empresa" Relationship="EmpresaDB.EmpresaEmpleados" FromRole="Empleados" ToRole="Empresa" />
+    <NavigationProperty Name="Subordinado" Relationship="EmpresaDB.EmpleadoEmpleado" FromRole="Empleado" ToRole="Empleado1" />
+    <NavigationProperty Name="Superior" Relationship="EmpresaDB.EmpleadoEmpleado" FromRole="Empleado1" ToRole="Empleado" />
+    <NavigationProperty Name="Categoria" Relationship="EmpresaDB.EmpleadoCategoria" FromRole="Empleado" ToRole="Categoria" />
+  </EntityType>
+  <Association Name="EmpresaClientes">
+    <End Type="EmpresaDB.Empresa" Role="Empresa" Multiplicity="1" />
+    <End Type="EmpresaDB.Cliente" Role="Clientes" Multiplicity="*" />
+  </Association>
+  <Association Name="EmpresaEmpleados">
+    <End Type="EmpresaDB.Empresa" Role="Empresa" Multiplicity="1" />
+    <End Type="EmpresaDB.Empleado" Role="Empleados" Multiplicity="*" />
+  </Association>
+  <Association Name="EmpleadoEmpleado">
+    <End Type="EmpresaDB.Empleado" Role="Empleado" Multiplicity="*" />
+    <End Type="EmpresaDB.Empleado" Role="Empleado1" Multiplicity="*" />
+  </Association>
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Empleado" Relationship="EmpresaDB.EmpleadoCategoria" FromRole="Categoria" ToRole="Empleado" />
+  </EntityType>
+  <Association Name="EmpleadoCategoria">
+    <End Type="EmpresaDB.Empleado" Role="Empleado" Multiplicity="1" />
+    <End Type="EmpresaDB.Categoria" Role="Categoria" Multiplicity="1" />
+  </Association>
+</Schema>

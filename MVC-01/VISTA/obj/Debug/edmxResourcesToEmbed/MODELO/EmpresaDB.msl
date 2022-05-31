@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EmpresaDBStoreContainer" CdmEntityContainer="EmpresaDBContainer">
+    <EntitySetMapping Name="EmpresaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(EmpresaDB.Empresa)">
+        <MappingFragment StoreEntitySet="EmpresaSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClienteSet">
+      <EntityTypeMapping TypeName="IsTypeOf(EmpresaDB.Cliente)">
+        <MappingFragment StoreEntitySet="ClienteSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="edad" ColumnName="edad" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmpleadoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(EmpresaDB.Empleado)">
+        <MappingFragment StoreEntitySet="EmpleadoSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="edad" ColumnName="edad" />
+          <ScalarProperty Name="salario" ColumnName="salario" />
+          <ScalarProperty Name="categoria" ColumnName="categoria" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CategoriaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(EmpresaDB.Categoria)">
+        <MappingFragment StoreEntitySet="CategoriaSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="EmpresaClientes" TypeName="EmpresaDB.EmpresaClientes" StoreEntitySet="ClienteSet">
+      <EndProperty Name="Empresa">
+        <ScalarProperty Name="Id" ColumnName="Empresa_Id" />
+      </EndProperty>
+      <EndProperty Name="Clientes">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EmpresaEmpleados" TypeName="EmpresaDB.EmpresaEmpleados" StoreEntitySet="EmpleadoSet">
+      <EndProperty Name="Empresa">
+        <ScalarProperty Name="Id" ColumnName="Empresa_Id" />
+      </EndProperty>
+      <EndProperty Name="Empleados">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EmpleadoEmpleado" TypeName="EmpresaDB.EmpleadoEmpleado" StoreEntitySet="EmpleadoEmpleado">
+      <EndProperty Name="Empleado">
+        <ScalarProperty Name="Id" ColumnName="Superior_Id" />
+      </EndProperty>
+      <EndProperty Name="Empleado1">
+        <ScalarProperty Name="Id" ColumnName="Subordinado_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EmpleadoCategoria" TypeName="EmpresaDB.EmpleadoCategoria" StoreEntitySet="EmpleadoSet">
+      <EndProperty Name="Categoria">
+        <ScalarProperty Name="Id" ColumnName="Categoria_Id" />
+      </EndProperty>
+      <EndProperty Name="Empleado">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
